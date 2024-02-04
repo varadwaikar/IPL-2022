@@ -1,0 +1,25 @@
+#Ipl 2022 data analysis
+import pandas as pd
+import plotly.express as px
+import plotly.graph_objects as go
+data=pd.read_csv("IPL 2022.csv")
+print(data)
+figure=px.bar(data,x=data['Match_Winner'],title="Number Of Matches Won In IPL 2022")
+figure.show()
+data['won_by']=data['won_by'].map({'Wickets':'Chasing','Runs':'Defending'})
+won_by=data["won_by"].value_counts()
+label=won_by.index
+counts=won_by.values
+colors=['red','lightgreen']
+fig=go.figure(data=[go.pie(labels=label,values=counts)])
+fig.update_layout(title_text="No. of matches won by defendingor chasing")
+fig.update_traces(hoverinfo='label+percent',textinfo=value,textfont_size=30,marker=dict(color=colors,line=dict(color='black',width=3)))
+figure.show()
+figure=px.bar(data,x=data["besty_baller"],title="Best Baller in IPL 2022")
+figure.show()
+figure=px.bar(data,x=data["player_of_the_mathc"],title="most player of the match awards")
+figure.show()
+#Top Score in IPL 2022
+figure=px.bar(data,x=data["top_scrore"],y=data["highscore"],color=data['highscore'],title="Top Score in IPL 2022")
+figure.show()
+ 
